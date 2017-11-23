@@ -14,7 +14,7 @@
       </p>
       <div class="buttons">
         <paper-button class="btn btn-default" dialog-dismiss autofocus on-tap="close">Cancel</paper-button>
-        <paper-button class="btn btn-danger"  dialog-confirm on-tap="_handleDelete">Delete</paper-button>
+        <paper-button class="btn btn-danger"  dialog-confirm on-tap="_handleEvent">Delete</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -31,35 +31,44 @@
     class OcPaperDialog extends Polymer.Element {
       static get is() { return 'oc-paper-dialog'; }
       static get properties() {
-        return {
-            subject: {
-                type: String,
-                value: "Resource",
-                notify: true
-            },
-            resource: {
-                type: String,
-                value: "resource"
-            },
-            key: {
-                type: String,
-                notify: true
-            }
-        }
+          return {
+              subject: {
+                  type: String,
+                  value: "Resource",
+                  notify: true
+              },
+              resource: {
+                  type: String,
+                  value: "resource"
+              },
+              key: {
+                  type: String,
+                  notify: true
+              },
+              eventName: {
+                  type: String,
+                  notify: true,
+                  value: "event"
+              }
+          }
+      }
 
-          _handleDelete: function(e, detail) {
-              this.fire('delete', {id : this.key});
+          _handleEvent(e) {
+              this.dispatchEvent(new CustomEvent(this.eventName, {
+                  bubbles: true, composed: true, detail:
+                      {id : this.key}
+              }));
           }
 
-          open : function() {
+          open () {
               this.$.paperDeleteDialog.open();
           }
 
-          close : function(){
+          close (){
               this.$.paperDeleteDialog.close();
           }
 
-          _patchOverlay: function (e) {
+          _patchOverlay(e){
               if (e.target.withBackdrop) {
                   e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
               }
