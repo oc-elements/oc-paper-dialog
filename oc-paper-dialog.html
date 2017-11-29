@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html"
 
 <dom-module id="oc-paper-dialog">
   <template>
@@ -73,7 +74,7 @@
                   e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
               }
           }
-      };
+      }
     }
 
     window.customElements.define(OcPaperDialog.is, OcPaperDialog);
