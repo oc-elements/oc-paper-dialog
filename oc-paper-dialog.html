@@ -33,19 +33,23 @@
       static get is() { return 'oc-paper-dialog'; }
       static get properties() {
           return {
+              //used in the heading
               subject: {
                   type: String,
                   value: "Resource",
                   notify: true
               },
+              //used in the body of the dialog
               resource: {
                   type: String,
                   value: "resource"
               },
+              //id of the record to remove
               key: {
                   type: String,
                   notify: true
               },
+              //name of the event to fire
               eventName: {
                   type: String,
                   notify: true,
@@ -54,27 +58,27 @@
           }
       }
 
-          _handleEvent(e) {
-              this.dispatchEvent(new CustomEvent(this.eventName, {
-                  bubbles: true, composed: true, detail:
-                      {id : this.key}
-              }));
-          }
+      _handleEvent(e) {
+          this.dispatchEvent(new CustomEvent(this.eventName, {
+              bubbles: true, composed: true, detail:
+                  {id : this.key}
+          }));
+      }
 
-          open () {
-              this.$.paperDeleteDialog.open();
-          }
+      open() {
+          this.$.paperDeleteDialog.open();
+      }
 
-          close (){
-              this.$.paperDeleteDialog.close();
-          }
+      close(){
+          this.$.paperDeleteDialog.close();
+      }
 
-          _patchOverlay(e){
-              if (e.target.withBackdrop) {
-                  e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
-              }
+      _patchOverlay(e){
+          if (e.target.withBackdrop) {
+              e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
           }
       }
+
     }
 
     window.customElements.define(OcPaperDialog.is, OcPaperDialog);
