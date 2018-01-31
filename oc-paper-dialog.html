@@ -4,7 +4,7 @@
 <dom-module id="oc-paper-dialog">
     <template>
         <paper-dialog
-                id='paperDeleteDialog'
+                id='paperDialog'
                 modal
                 no-cancel-on-esc-key
                 no-cancel-on-outside-click
@@ -21,66 +21,66 @@
     </template>
 
     <script>
-        /**
-         * `oc-paper-dialog`
-         * Papaer Dialog box that can return a value
-         *
-         * @customElement
-         * @polymer
-         * @demo demo/index.html
-         */
-        class OcPaperDialog extends Polymer.Element {
-            static get is() { return 'oc-paper-dialog'; }
-            static get properties() {
-                return {
-                    //used in the heading
-                    subject: {
-                        type: String,
-                        value: "Resource",
-                        notify: true
-                    },
-                    //used in the body of the dialog
-                    resource: {
-                        type: String,
-                        value: "resource"
-                    },
-                    //id of the record to remove
-                    key: {
-                        type: String,
-                        notify: true
-                    },
-                    //name of the event to fire
-                    eventName: {
-                        type: String,
-                        notify: true,
-                        value: "event"
-                    }
-                }
-            }
+		/**
+		 * `oc-paper-dialog`
+		 * Papaer Dialog box that can return a value
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.html
+		 */
+		class OcPaperDialog extends Polymer.Element {
+			static get is() { return 'oc-paper-dialog'; }
+			static get properties() {
+				return {
+					//used in the heading
+					subject: {
+						type: String,
+						value: "Resource",
+						notify: true
+					},
+					//used in the body of the dialog
+					resource: {
+						type: String,
+						value: "resource"
+					},
+					//id of the record to remove
+					key: {
+						type: String,
+						notify: true
+					},
+					//name of the event to fire
+					eventName: {
+						type: String,
+						notify: true,
+						value: "event"
+					}
+				}
+			}
 
-            _handleEvent(e) {
-                this.dispatchEvent(new CustomEvent(this.eventName, {
-                    bubbles: true, composed: true, detail:
-                        {id : this.key}
-                }));
-            }
+			_handleEvent(e) {
+				this.dispatchEvent(new CustomEvent(this.eventName, {
+					bubbles: true, composed: true, detail:
+						{id : this.key}
+				}));
+			}
 
-            open() {
-                this.$.paperDialog.open();
-            }
+			open() {
+				this.$.paperDialog.open();
+			}
 
-            close(){
-                this.$.paperDialog.close();
-            }
+			close(){
+				this.$.paperDialog.close();
+			}
 
-            _patchOverlay(e){
-                if (e.target.withBackdrop) {
-                    e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
-                }
-            }
+			_patchOverlay(e){
+				if (e.target.withBackdrop) {
+					e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
+				}
+			}
 
-        }
+		}
 
-        window.customElements.define(OcPaperDialog.is, OcPaperDialog);
+		window.customElements.define(OcPaperDialog.is, OcPaperDialog);
     </script>
 </dom-module>
