@@ -9,13 +9,13 @@
                 no-cancel-on-esc-key
                 no-cancel-on-outside-click
                 on-iron-overlay-opened="_patchOverlay" >
-            <h2>Delete [[subject]] </h2>
+            <h2>[[subject]]</h2>
             <p>
-                Are you sure you want to delete [[resource]]?
+                [[body]]
             </p>
             <div class="buttons">
                 <paper-button class="btn btn-default" dialog-dismiss autofocus on-tap="close">Cancel</paper-button>
-                <paper-button class="btn btn-danger"  dialog-confirm on-tap="_handleEvent">Delete</paper-button>
+                <paper-button class="btn btn-danger"  dialog-confirm on-tap="_handleEvent">Accept</paper-button>
             </div>
         </paper-dialog>
     </template>
@@ -36,13 +36,11 @@
 					//used in the heading
 					subject: {
 						type: String,
-						value: "Resource",
 						notify: true
 					},
 					//used in the body of the dialog
-					resource: {
+					body: {
 						type: String,
-						value: "resource"
 					},
 					//id of the record to remove
 					key: {
