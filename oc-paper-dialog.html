@@ -3,82 +3,153 @@
 
 <dom-module id="oc-paper-dialog">
     <template>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style include="shop-button" is="custom-style">
+
+            :host {
+                display: block;
+                background: #ffffff;
+                color: #000;
+            }
+
+
+            .heading {
+                border-top: 1px #cecece solid;
+                border-bottom: 1px #cecece solid;
+                background: #f8f8f8;
+                color: #000;
+            }
+
+            h3 {
+                font-size: 1.3em !important;
+                margin: 10px 0 !important;
+            }
+
+            .btn-yes {
+                background-color: #e0992f;
+                width: 100%;
+                height: 40px;
+                margin: 10px 0;
+                color: #ffffff;
+            }
+            .btn-danger {
+                background-color: #e05753;
+                width: 100%;
+                height: 40px;
+                margin: 10px 0;
+                color: #ffffff;
+            }
+
+            .button-container{
+                border-top: 1px #cecece solid;
+                padding-left: 2px!important;
+                padding-right: 2px!important;
+            }
+
+            paper-dialog {
+                width: calc(100% - 100px);
+                max-width: 300px;
+            }
+            .margin{
+                margin-top: 0px!important;
+                margin-bottom: 0px;
+            }
+            .text{
+                white-space: pre-line;
+                font-size: 1.2em !important;
+                line-height: 1.5;
+            }
+        </style>
         <paper-dialog
                 id='paperDialog'
                 modal
                 no-cancel-on-esc-key
                 no-cancel-on-outside-click
                 on-iron-overlay-opened="_patchOverlay" >
-            <h2>[[subject]]</h2>
-            <p>
-                [[body]]
-            </p>
-            <div class="buttons">
-                <paper-button class="btn btn-default" dialog-dismiss autofocus on-tap="close">Cancel</paper-button>
-                <paper-button class="btn btn-danger"  dialog-confirm on-tap="_handleEvent">Accept</paper-button>
+            <div class="container-fluid margin">
+                <div class="row">
+                    <div class="col-xs-12 heading">
+                        <h3>[[subject]]</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>
+                            <span class="text">[[body]]</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-container col-xs-6">
+                        <paper-button class="btn-danger" dialog-dismiss autofocus on-tap="close">NO</paper-button>
+                    </div>
+                    <div class="button-container col-xs-6 ">
+                        <paper-button class="btn-yes" dialog-confirm on-tap="_handleEvent">YES</paper-button>
+                    </div>
+                </div>
             </div>
         </paper-dialog>
     </template>
 
     <script>
-		/**
-		 * `oc-paper-dialog`
-		 * Papaer Dialog box that can return a value
-		 *
-		 * @customElement
-		 * @polymer
-		 * @demo demo/index.html
-		 */
-		class OcPaperDialog extends Polymer.Element {
-			static get is() { return 'oc-paper-dialog'; }
-			static get properties() {
-				return {
-					//used in the heading
-					subject: {
-						type: String,
-						notify: true
-					},
-					//used in the body of the dialog
-					body: {
-						type: String,
-					},
-					//id of the record to remove
-					key: {
-						type: String,
-						notify: true
-					},
-					//name of the event to fire
-					eventName: {
-						type: String,
-						notify: true,
-						value: "event"
-					}
-				}
-			}
+        /**
+         * `oc-paper-dialog`
+         * Papaer Dialog box that can return a value
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class OcPaperDialog extends Polymer.Element {
+            static get is() { return 'oc-paper-dialog'; }
+            static get properties() {
+                return {
+                    //used in the heading
+                    subject: {
+                        type: String,
+                        notify: true
+                    },
+                    //used in the body of the dialog
+                    body: {
+                        type: String,
+                    },
+                    //id of the record to remove
+                    key: {
+                        type: String,
+                        notify: true
+                    },
+                    //name of the event to fire
+                    eventName: {
+                        type: String,
+                        notify: true,
+                        value: "event"
+                    }
+                }
+            }
 
-			_handleEvent(e) {
-				this.dispatchEvent(new CustomEvent(this.eventName, {
-					bubbles: true, composed: true, detail:
-						{id : this.key}
-				}));
-			}
+            _handleEvent(e) {
+                this.dispatchEvent(new CustomEvent(this.eventName, {
+                    bubbles: true, composed: true, detail:
+                        {id : this.key}
+                }));
+            }
 
-			open() {
-				this.$.paperDialog.open();
-			}
+            open() {
+                this.$.paperDialog.open();
+            }
 
-			close(){
-				this.$.paperDialog.close();
-			}
+            close(){
+                this.$.paperDialog.close();
+            }
 
-			_patchOverlay(e){
-				if (e.target.withBackdrop) {
-					e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
-				}
-			}
+            _patchOverlay(e){
+                if (e.target.withBackdrop) {
+                    e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
+                }
+            }
 
-		}
+        }
 
-		window.customElements.define(OcPaperDialog.is, OcPaperDialog);
+        window.customElements.define(OcPaperDialog.is, OcPaperDialog);
     </script>
 </dom-module>
