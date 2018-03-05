@@ -81,10 +81,10 @@
                 </div>
                 <div class="row">
                     <div class="button-container col-xs-6">
-                        <paper-button class="btn-danger" dialog-dismiss autofocus on-tap="close">NO</paper-button>
+                        <paper-button class="btn-danger" dialog-dismiss autofocus on-tap="close">[[secondaryLabel]]</paper-button>
                     </div>
                     <div class="button-container col-xs-6 ">
-                        <paper-button class="btn-yes" dialog-confirm on-tap="_handleEvent">YES</paper-button>
+                        <paper-button class="btn-yes" dialog-confirm on-tap="_handleEvent">[[primaryLabel]]</paper-button>
                     </div>
                 </div>
             </div>
@@ -123,9 +123,20 @@
                         type: String,
                         notify: true,
                         value: "event"
+                    },
+                    //default button labels
+                    primaryLabel: {
+                        type: String,
+                        value: "Yes"
+
+                    },
+                    secondaryLabel: {
+                        type: String,
+                        value: "No"
                     }
                 }
             }
+
 
             _handleEvent(e) {
                 this.dispatchEvent(new CustomEvent(this.eventName, {
