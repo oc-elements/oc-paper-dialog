@@ -79,88 +79,108 @@
                         </p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="button-container col-xs-6">
-                        <paper-button class="btn-danger" dialog-dismiss autofocus on-tap="close">[[secondaryLabel]]</paper-button>
+                <template is="dom-if" if="[[_hasTwoButtons]]">
+                    <div class="row">
+                        <div class="button-container col-xs-6">
+                            <paper-button class="btn-danger" dialog-dismiss autofocus on-tap="close">
+                                [[secondaryLabel]]
+                            </paper-button>
+                        </div>
+                        <div class="button-container col-xs-6">
+                            <paper-button class="btn-yes" dialog-confirm on-tap="_handleEvent">[[primaryLabel]]</paper-button>
+                        </div>
                     </div>
-                    <div class="button-container col-xs-6 ">
-                        <paper-button class="btn-yes" dialog-confirm on-tap="_handleEvent">[[primaryLabel]]</paper-button>
+                </template>
+                <template is="dom-if" if="[[!_hasTwoButtons]]">
+                    <div class="row">
+                        <div class="button-container col-xs-12">
+                            <paper-button class="btn-yes" dialog-confirm on-tap="_handleEvent">[[primaryLabel]]</paper-button>
+                        </div>
                     </div>
-                </div>
+                </template>
             </div>
         </paper-dialog>
     </template>
 
     <script>
-        /**
-         * `oc-paper-dialog`
-         * Papaer Dialog box that can return a value
-         *
-         * @customElement
-         * @polymer
-         * @demo demo/index.html
-         */
-        class OcPaperDialog extends Polymer.Element {
-            static get is() { return 'oc-paper-dialog'; }
-            static get properties() {
-                return {
-                    //used in the heading
-                    subject: {
-                        type: String,
-                        notify: true
-                    },
-                    //used in the body of the dialog
-                    body: {
-                        type: String,
-                    },
-                    //id of the record to remove
-                    key: {
-                        type: String,
-                        notify: true
-                    },
-                    //name of the event to fire
-                    eventName: {
-                        type: String,
-                        notify: true,
-                        value: "event"
-                    },
-                    //default button labels
-                    primaryLabel: {
-                        type: String,
-                        value: "Yes"
+		/**
+		 * `oc-paper-dialog`
+		 * Papaer Dialog box that can return a value
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.html
+		 */
+		class OcPaperDialog extends Polymer.Element {
+			static get is() { return 'oc-paper-dialog'; }
+			static get properties() {
+				return {
+					//used in the heading
+					subject: {
+						type: String,
+						notify: true
+					},
+					//used in the body of the dialog
+					body: {
+						type: String,
+					},
+					//id of the record to remove
+					key: {
+						type: String,
+						notify: true
+					},
+					//name of the event to fire
+					eventName: {
+						type: String,
+						notify: true,
+						value: "event"
+					},
+					//default button labels
+					primaryLabel: {
+						type: String,
+						value: "Yes"
 
-                    },
-                    secondaryLabel: {
-                        type: String,
-                        value: "No"
-                    }
-                }
-            }
+					},
+					secondaryLabel: {
+						type: String,
+						value: "No"
+					},
+					_hasTwoButtons: {
+						type: Boolean,
+						value: true,
+						computed: '_countButtons(primaryLabel, secondaryLabel)'
+					}
+				}
+			}
 
+			// Determine if we should show both buttons or only one
+			_countButtons(primary, secondary) {
+				return secondary;
+			}
 
-            _handleEvent(e) {
-                this.dispatchEvent(new CustomEvent(this.eventName, {
-                    bubbles: true, composed: true, detail:
-                        {id : this.key}
-                }));
-            }
+			_handleEvent(e) {
+				this.dispatchEvent(new CustomEvent(this.eventName, {
+					bubbles: true, composed: true, detail:
+						{id : this.key}
+				}));
+			}
 
-            open() {
-                this.$.paperDialog.open();
-            }
+			open() {
+				this.$.paperDialog.open();
+			}
 
-            close(){
-                this.$.paperDialog.close();
-            }
+			close(){
+				this.$.paperDialog.close();
+			}
 
-            _patchOverlay(e){
-                if (e.target.withBackdrop) {
-                    e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
-                }
-            }
+			_patchOverlay(e){
+				if (e.target.withBackdrop) {
+					e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
+				}
+			}
 
-        }
+		}
 
-        window.customElements.define(OcPaperDialog.is, OcPaperDialog);
+		window.customElements.define(OcPaperDialog.is, OcPaperDialog);
     </script>
 </dom-module>
