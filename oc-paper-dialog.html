@@ -14,10 +14,10 @@
 
 
             .heading {
-                border-top: 1px #cecece solid;
-                border-bottom: 1px #cecece solid;
-                background: #f8f8f8;
-                color: #000;
+                border-top: 1px var(--app-secondary-color) solid;
+                border-bottom: 1px var(--app-secondary-color) solid;
+                background: var(--app-primary-color);
+                color: #fff;
             }
 
             h3 {
@@ -41,7 +41,6 @@
             }
 
             .button-container{
-                border-top: 1px #cecece solid;
                 padding-left: 2px!important;
                 padding-right: 2px!important;
             }
@@ -74,7 +73,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <p>
+                        <p style="padding: 10px 0;">
                             <span class="text">[[body]]</span>
                         </p>
                     </div>
@@ -103,84 +102,84 @@
     </template>
 
     <script>
-		/**
-		 * `oc-paper-dialog`
-		 * Papaer Dialog box that can return a value
-		 *
-		 * @customElement
-		 * @polymer
-		 * @demo demo/index.html
-		 */
-		class OcPaperDialog extends Polymer.Element {
-			static get is() { return 'oc-paper-dialog'; }
-			static get properties() {
-				return {
-					//used in the heading
-					subject: {
-						type: String,
-						notify: true
-					},
-					//used in the body of the dialog
-					body: {
-						type: String,
-					},
-					//id of the record to remove
-					key: {
-						type: String,
-						notify: true
-					},
-					//name of the event to fire
-					eventName: {
-						type: String,
-						notify: true,
-						value: "event"
-					},
-					//default button labels
-					primaryLabel: {
-						type: String,
-						value: "Yes"
+        /**
+         * `oc-paper-dialog`
+         * Papaer Dialog box that can return a value
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class OcPaperDialog extends Polymer.Element {
+            static get is() { return 'oc-paper-dialog'; }
+            static get properties() {
+                return {
+                    //used in the heading
+                    subject: {
+                        type: String,
+                        notify: true
+                    },
+                    //used in the body of the dialog
+                    body: {
+                        type: String,
+                    },
+                    //id of the record to remove
+                    key: {
+                        type: String,
+                        notify: true
+                    },
+                    //name of the event to fire
+                    eventName: {
+                        type: String,
+                        notify: true,
+                        value: "event"
+                    },
+                    //default button labels
+                    primaryLabel: {
+                        type: String,
+                        value: "Yes"
 
-					},
-					secondaryLabel: {
-						type: String,
-						value: "No"
-					},
-					_hasTwoButtons: {
-						type: Boolean,
-						value: true,
-						computed: '_countButtons(primaryLabel, secondaryLabel)'
-					}
-				}
-			}
+                    },
+                    secondaryLabel: {
+                        type: String,
+                        value: "No"
+                    },
+                    _hasTwoButtons: {
+                        type: Boolean,
+                        value: true,
+                        computed: '_countButtons(primaryLabel, secondaryLabel)'
+                    }
+                }
+            }
 
-			// Determine if we should show both buttons or only one
-			_countButtons(primary, secondary) {
-				return secondary;
-			}
+            // Determine if we should show both buttons or only one
+            _countButtons(primary, secondary) {
+                return secondary;
+            }
 
-			_handleEvent(e) {
-				this.dispatchEvent(new CustomEvent(this.eventName, {
-					bubbles: true, composed: true, detail:
-						{id : this.key}
-				}));
-			}
+            _handleEvent(e) {
+                this.dispatchEvent(new CustomEvent(this.eventName, {
+                    bubbles: true, composed: true, detail:
+                        {id : this.key}
+                }));
+            }
 
-			open() {
-				this.$.paperDialog.open();
-			}
+            open() {
+                this.$.paperDialog.open();
+            }
 
-			close(){
-				this.$.paperDialog.close();
-			}
+            close(){
+                this.$.paperDialog.close();
+            }
 
-			_patchOverlay(e){
-				if (e.target.withBackdrop) {
-					e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
-				}
-			}
+            _patchOverlay(e){
+                if (e.target.withBackdrop) {
+                    e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
+                }
+            }
 
-		}
+        }
 
-		window.customElements.define(OcPaperDialog.is, OcPaperDialog);
+        window.customElements.define(OcPaperDialog.is, OcPaperDialog);
     </script>
 </dom-module>
