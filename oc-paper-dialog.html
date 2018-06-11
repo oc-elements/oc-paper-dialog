@@ -73,6 +73,13 @@
                 font-size: 1.2em !important;
                 line-height: 1.5;
             }
+            .body-row {
+                background-color: #ffffff;
+                color: var(--app-primary-color);
+            }
+            .confirmation-row {
+                background-color:#eaeaea ;
+            }
         </style>
         <paper-dialog
                 id='paperDialog'
@@ -86,7 +93,7 @@
                         <h3>[[subject]]</h3>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row body-row">
                     <div class="col-xs-12">
                         <p style="padding: 10px 0;">
                             <span class="text">[[body]]</span>
@@ -94,7 +101,7 @@
                     </div>
                 </div>
                 <template is="dom-if" if="[[_hasTwoButtons]]">
-                    <div class="row">
+                    <div class="row confirmation-row">
                         <div class="danger-container col-xs-6">
                             <paper-button class="btn-danger" dialog-dismiss autofocus on-tap="close">
                                 [[secondaryLabel]]
@@ -106,7 +113,7 @@
                     </div>
                 </template>
                 <template is="dom-if" if="[[!_hasTwoButtons]]">
-                    <div class="row">
+                    <div class="row confirmation-row">
                         <div class="button-container col-xs-12">
                             <paper-button class="btn-confirm" dialog-confirm on-tap="_handleEvent">[[primaryLabel]]</paper-button>
                         </div>
